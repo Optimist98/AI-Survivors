@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://3eofgxwy4qse"]
+
+[ext_resource type="Script" path="res://Scripts/gem.gd" id="1_d2ui0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dubr7"]
+radius = 3.0
+
+[node name="Gem" type="Area2D" groups=["gems"]]
+position = Vector2(1450, 1450)
+script = ExtResource("1_d2ui0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dubr7")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 1, 0.196078, 1)
+polygon = PackedVector2Array(0, -3, -2, 0, 0, 3, 2, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
