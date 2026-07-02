@@ -1,27 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://t54hvm2v42yj"]
+[gd_scene format=3 uid="uid://t54hvm2v42yj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fniaf"]
-radius = 10.3219
+radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ojul4"]
-radius = 27.0
+radius = 100.0
 
-[node name="Player" type="CharacterBody2D"]
-position = Vector2(260, 498)
+[node name="Player" type="CharacterBody2D" unique_id=773232642]
+position = Vector2(1500, 1500)
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1313404270]
 position = Vector2(-1.52588e-05, -1.52588e-05)
 scale = Vector2(1.6358, 1.45109)
 color = Color(0, 0.721569, 0.721569, 1)
-polygon = PackedVector2Array(-8.94654, -9.05471, 8, -9, 8, 9, -8.94654, 9)
+polygon = PackedVector2Array(-7.9472046, -8.95874, 7.9471436, -8.95874, 7.9471436, 8.958862, -7.9472046, 8.958862)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
-scale = Vector2(1.36, 1.32)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=374839022]
 shape = SubResource("CircleShape2D_fniaf")
 
-[node name="Radar" type="Area2D" parent="."]
+[node name="Radar" type="Area2D" parent="." unique_id=1347417177]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar"]
-scale = Vector2(4, 4)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" unique_id=1575942098]
 shape = SubResource("CircleShape2D_ojul4")
