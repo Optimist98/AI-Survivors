@@ -4,14 +4,26 @@
 [ext_resource type="PackedScene" uid="uid://c2woau2a8dual" path="res://Enemy.tscn" id="2_2iko8"]
 [ext_resource type="Script" uid="uid://crf6wjlf1hghs" path="res://Scripts/Player.gd" id="2_3wbyf"]
 [ext_resource type="PackedScene" uid="uid://bc3nno6demh3p" path="res://bullet.tscn" id="3_lquwl"]
-[ext_resource type="Script" uid="uid://bh7ayw0m85821" path="res://Enemy.gd" id="4_y5s62"]
+[ext_resource type="PackedScene" uid="uid://m320mada21do" path="res://gem.tscn" id="4_7mycd"]
+[ext_resource type="Script" uid="uid://bh7ayw0m85821" path="res://Scripts/Enemy.gd" id="4_y5s62"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilfgn"]
+size = Vector2(3000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gd7ey"]
+size = Vector2(20, 3000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ouxv"]
+size = Vector2(20, 3000)
 
 [node name="Main" type="Node2D" unique_id=524066236]
 
+[node name="Floor" type="ColorRect" parent="." unique_id=1143703729]
+offset_right = 3000.0
+offset_bottom = 3000.0
+color = Color(0.435294, 0.435294, 0.435294, 1)
+
 [node name="Player" parent="." unique_id=106796341 groups=["player"] instance=ExtResource("1_yiwbc")]
-position = Vector2(436, 386)
 script = ExtResource("2_3wbyf")
 bullet_scene = ExtResource("3_lquwl")
 
@@ -20,23 +32,53 @@ position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
+[node name="Gem" parent="." unique_id=1393817956 instance=ExtResource("4_7mycd")]
+position = Vector2(1506, 1346)
+
+[node name="Gem5" parent="." unique_id=863739294 instance=ExtResource("4_7mycd")]
+position = Vector2(1376, 1628)
+
+[node name="Gem6" parent="." unique_id=1306155605 instance=ExtResource("4_7mycd")]
+position = Vector2(1441, 1543)
+
+[node name="Gem7" parent="." unique_id=599855938 instance=ExtResource("4_7mycd")]
+position = Vector2(1556, 1721)
+
+[node name="Gem4" parent="." unique_id=1316042271 instance=ExtResource("4_7mycd")]
+position = Vector2(1575, 1528)
+
+[node name="Gem2" parent="." unique_id=1951041744 instance=ExtResource("4_7mycd")]
+position = Vector2(1643, 1302)
+
+[node name="Gem3" parent="." unique_id=650788895 instance=ExtResource("4_7mycd")]
+position = Vector2(1317, 1412)
+
 [node name="Enemy" parent="." unique_id=1289450568 groups=["enemies"] instance=ExtResource("2_2iko8")]
+position = Vector2(1599, 1355)
 script = ExtResource("4_y5s62")
 
 [node name="Enemy2" parent="." unique_id=1549097031 groups=["enemies"] instance=ExtResource("2_2iko8")]
-position = Vector2(425, 535)
+position = Vector2(1579, 1618)
 script = ExtResource("4_y5s62")
 
 [node name="EnemySpawner" type="Timer" parent="." unique_id=1139673458]
 
-[node name="Floor" type="ColorRect" parent="." unique_id=1143703729]
-offset_right = 3000.0
-offset_bottom = 3000.0
-color = Color(0.435294, 0.435294, 0.435294, 1)
-
 [node name="Walls" type="StaticBody2D" parent="." unique_id=829498542]
 
 [node name="TopWall" type="CollisionShape2D" parent="Walls" unique_id=853850565]
+position = Vector2(1500, 0)
 shape = SubResource("RectangleShape2D_ilfgn")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls" unique_id=1554168891]
+position = Vector2(1500, 3000)
+shape = SubResource("RectangleShape2D_ilfgn")
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls" unique_id=2002004089]
+position = Vector2(0, 1500)
+shape = SubResource("RectangleShape2D_gd7ey")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls" unique_id=1248037516]
+position = Vector2(3006, 1500)
+shape = SubResource("RectangleShape2D_4ouxv")
 
 [node name="bullet" parent="." unique_id=699015559 instance=ExtResource("3_lquwl")]

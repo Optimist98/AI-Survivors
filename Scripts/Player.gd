@@ -50,15 +50,24 @@ func get_danger_weights():
      danger[i] = max(danger[i], dot * panic_factor)
 
 func get_interest_weights():
- interest = [0, 0, 0, 0, 0, 0, 0, 0]
- 
- var center_of_map = Vector2(576, 324) 
- var direction_to_center = (center_of_map - global_position).normalized()
- 
- for i in range(directions.size()):
-  var dot = directions[i].dot(direction_to_center)
-  if dot > 0:
-   interest[i] = dot * 1.0
+    interest = [0, 0, 0, 0, 0, 0, 0, 0]
+    var gems = get_tree().get_nodes_in_group("gems")
+    
+    if gems.size() > 0:
+        var closest_gem = null
+        var min_dist = 999999
+        for g in gems:
+            var dist = global_position.distance_to(g.global_position)
+            if dist < min_dist:
+                min_dist = dist
+                closest_gem = g
+        
+        if closest_gem:
+            var dir_to_gem = (closest_gem.global_position - global_position).normalized()
+            for i in range(directions.size()):
+                var dot = directions[i].dot(dir_to_gem)
+                if dot > 0:
+                    interest[i] = dot * 1.5
 
 @export var bullet_scene: PackedScene  # 👈 ВОТ ЭТО ОБЯЗАТЕЛЬНО
 
