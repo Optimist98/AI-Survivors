@@ -8,12 +8,20 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Auto-Survivors"
-run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.0", "GL Compatibility")
+run/main_scene="uid://do6sxa5la64ve"
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://cs3f0cv0fd5il"
 
 [display]
 
