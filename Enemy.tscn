@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2woau2a8dual"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_34dev"]
+radius = 6.08276
+
+[node name="Enemy" type="CharacterBody2D"]
+position = Vector2(242, 295)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(0, -1.14441e-05)
+scale = Vector2(1, 1.22222)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, -6, -7, 3, 0, 3, 7, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_34dev")
+
+[node name="Hitbox" type="Area2D" parent="."]
