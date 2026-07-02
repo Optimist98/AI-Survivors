@@ -59,3 +59,15 @@ func get_interest_weights():
   var dot = directions[i].dot(direction_to_center)
   if dot > 0:
    interest[i] = dot * 1.0
+
+@export var bullet_scene: PackedScene  # 👈 ВОТ ЭТО ОБЯЗАТЕЛЬНО
+
+func _process(delta):
+    if Input.is_action_just_pressed("shoot"):
+        shoot()
+
+func shoot():
+    var bullet = bullet_scene.instantiate()
+    bullet.global_position = global_position
+    get_tree().current_scene.add_child(bullet)
+    print("shoot")

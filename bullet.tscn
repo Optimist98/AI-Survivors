@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bc3nno6demh3p"]
+
+[ext_resource type="Script" uid="uid://btkg7ysggpooh" path="res://bullet.gd" id="1_v7oki"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0swlc"]
+radius = 5.0
+
+[node name="bullet" type="Area2D" unique_id=699015559]
+script = ExtResource("1_v7oki")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1870996805]
+offset = Vector2(4, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1735713045]
+shape = SubResource("CircleShape2D_0swlc")

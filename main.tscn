@@ -1,38 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://c72dkdp6eqh43"]
+[gd_scene format=3 uid="uid://c72dkdp6eqh43"]
 
 [ext_resource type="PackedScene" uid="uid://t54hvm2v42yj" path="res://Player.tscn" id="1_yiwbc"]
 [ext_resource type="PackedScene" uid="uid://c2woau2a8dual" path="res://Enemy.tscn" id="2_2iko8"]
-[ext_resource type="Script" path="res://Scripts/Player.gd" id="2_3wbyf"]
-[ext_resource type="Script" path="res://Enemy.gd" id="4_y5s62"]
+[ext_resource type="Script" uid="uid://crf6wjlf1hghs" path="res://Scripts/Player.gd" id="2_3wbyf"]
+[ext_resource type="PackedScene" uid="uid://bc3nno6demh3p" path="res://bullet.tscn" id="3_lquwl"]
+[ext_resource type="Script" uid="uid://bh7ayw0m85821" path="res://Enemy.gd" id="4_y5s62"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilfgn"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=524066236]
 
-[node name="Player" parent="." groups=["player"] instance=ExtResource("1_yiwbc")]
+[node name="Player" parent="." unique_id=106796341 groups=["player"] instance=ExtResource("1_yiwbc")]
 position = Vector2(436, 386)
 script = ExtResource("2_3wbyf")
+bullet_scene = ExtResource("3_lquwl")
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=78179809]
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
-[node name="Enemy" parent="." groups=["enemies"] instance=ExtResource("2_2iko8")]
+[node name="Enemy" parent="." unique_id=1289450568 groups=["enemies"] instance=ExtResource("2_2iko8")]
 script = ExtResource("4_y5s62")
 
-[node name="Enemy2" parent="." groups=["enemies"] instance=ExtResource("2_2iko8")]
+[node name="Enemy2" parent="." unique_id=1549097031 groups=["enemies"] instance=ExtResource("2_2iko8")]
 position = Vector2(425, 535)
 script = ExtResource("4_y5s62")
 
-[node name="EnemySpawner" type="Timer" parent="."]
+[node name="EnemySpawner" type="Timer" parent="." unique_id=1139673458]
 
-[node name="Floor" type="ColorRect" parent="."]
+[node name="Floor" type="ColorRect" parent="." unique_id=1143703729]
 offset_right = 3000.0
 offset_bottom = 3000.0
 color = Color(0.435294, 0.435294, 0.435294, 1)
 
-[node name="Walls" type="StaticBody2D" parent="."]
+[node name="Walls" type="StaticBody2D" parent="." unique_id=829498542]
 
-[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+[node name="TopWall" type="CollisionShape2D" parent="Walls" unique_id=853850565]
 shape = SubResource("RectangleShape2D_ilfgn")
+
+[node name="bullet" parent="." unique_id=699015559 instance=ExtResource("3_lquwl")]
