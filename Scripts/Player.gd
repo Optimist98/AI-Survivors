@@ -82,7 +82,6 @@ func _process(delta):
     auto_shoot()
     #автострельба
 func auto_shoot():
-    print("enemies:", enemies.size())
     if !can_shoot:
         return
 
@@ -105,8 +104,6 @@ func shoot(enemy):
     bullet.direction = dir
 
     get_tree().current_scene.add_child(bullet)
-
-    print("auto shoot")
 
 #Радар противников
 
