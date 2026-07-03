@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://crf6wjlf1hghs" path="res://Scripts/Player.gd" id="1_6l3be"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fniaf"]
-radius = 14.0
+radius = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ojul4"]
 radius = 250.0
@@ -22,13 +22,17 @@ polygon = PackedVector2Array(-7.9472046, -8.95874, 7.9471436, -8.95874, 7.947143
 shape = SubResource("CircleShape2D_fniaf")
 
 [node name="Radar" type="Area2D" parent="." unique_id=1347417177]
+collision_layer = 4
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" unique_id=1575942098]
 shape = SubResource("CircleShape2D_ojul4")
 
 [node name="EnemyRadar" type="Area2D" parent="." unique_id=269722647]
+collision_layer = 4
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRadar" unique_id=978350476]
 shape = SubResource("CircleShape2D_ojul4")

@@ -33,15 +33,9 @@ var interest = [0, 0, 0, 0, 0, 0, 0, 0]
 @onready var enemy_radar = $EnemyRadar
 
 func _ready():
-<<<<<<< Updated upstream
- for i in range(directions.size()):
-  directions[i] = directions[i].normalized()
-=======
     speed = Global.speed
     for i in range(directions.size()):
         directions[i] = directions[i].normalized()
-
->>>>>>> Stashed changes
 
 func _physics_process(_delta):
  get_danger_weights()

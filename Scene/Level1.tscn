@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://vgq5qrtyy07r" path="res://Scripts/level_1.gd" id="1_gqi4c"]
 [ext_resource type="PackedScene" uid="uid://t54hvm2v42yj" path="res://Scene/Player.tscn" id="1_lmyl5"]
-[ext_resource type="Script" uid="uid://ckthetb8ptv71" path="res://Scene/level_1.gd" id="1_ruose"]
 [ext_resource type="PackedScene" uid="uid://bc3nno6demh3p" path="res://Scene/bullet.tscn" id="3_s3sxq"]
 [ext_resource type="PackedScene" uid="uid://c2woau2a8dual" path="res://enemies/Enemy.tscn" id="5_1bjei"]
 [ext_resource type="Script" uid="uid://bqo8mo4di5ux8" path="res://Scripts/Enemy_spawner.gd" id="7_8bq5r"]
@@ -22,11 +21,7 @@ size = Vector2(20, 3000)
 bg_color = Color(0.38039216, 0.8117647, 0.46666667, 1)
 
 [node name="Level1" type="Node2D" unique_id=524066236]
-<<<<<<< Updated upstream
 script = ExtResource("1_gqi4c")
-=======
-script = ExtResource("1_ruose")
->>>>>>> Stashed changes
 
 [node name="Floor" type="ColorRect" parent="." unique_id=1143703729]
 offset_right = 3000.0
@@ -69,7 +64,6 @@ shape = SubResource("RectangleShape2D_4ouxv")
 
 [node name="bullet" parent="." unique_id=699015559 instance=ExtResource("3_s3sxq")]
 
-<<<<<<< Updated upstream
 [node name="UI" type="CanvasLayer" parent="." unique_id=1513492796]
 
 [node name="XpBar" type="ProgressBar" parent="UI" unique_id=1100579267]
@@ -85,13 +79,10 @@ offset_left = 1.0
 offset_top = 29.0
 offset_right = 41.0
 offset_bottom = 52.0
-=======
-[node name="UI" type="CanvasLayer" parent="." unique_id=2032083458]
 
 [node name="HPBar" type="ProgressBar" parent="UI" unique_id=1561234886]
 offset_left = 58.0
 offset_top = 21.0
-offset_right = 62.0
+offset_right = 258.0
 offset_bottom = 48.0
 value = 100.0
->>>>>>> Stashed changes

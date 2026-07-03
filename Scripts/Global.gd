@@ -45,7 +45,7 @@ func reset_player():
     
 func die():
     reset_player()
-    get_tree().reload_current_scene()
+    get_tree().call_deferred("reload_current_scene")
     
         
 const SAVE_PATH = "user://save.json"
