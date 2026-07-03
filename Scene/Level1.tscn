@@ -23,6 +23,7 @@ offset_bottom = 3000.0
 color = Color(0.435294, 0.435294, 0.435294, 1)
 
 [node name="Player" parent="." unique_id=106796341 instance=ExtResource("1_lmyl5")]
+collision_mask = 1
 bullet_scene = ExtResource("3_s3sxq")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=78179809]
@@ -31,7 +32,7 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
 [node name="Gem" parent="." unique_id=1393817956 instance=ExtResource("4_5py54")]
-position = Vector2(229, 2910)
+position = Vector2(250, 2883)
 
 [node name="Gem5" parent="." unique_id=863739294 instance=ExtResource("4_5py54")]
 position = Vector2(1376, 1628)
@@ -50,12 +51,6 @@ position = Vector2(2779, 1385)
 
 [node name="Gem3" parent="." unique_id=650788895 instance=ExtResource("4_5py54")]
 position = Vector2(2163, 2886)
-
-[node name="Enemy" parent="." unique_id=1289450568 instance=ExtResource("5_1bjei")]
-position = Vector2(1599, 1355)
-
-[node name="Enemy2" parent="." unique_id=1549097031 instance=ExtResource("5_1bjei")]
-position = Vector2(1579, 1618)
 
 [node name="EnemySpawner" type="Timer" parent="." unique_id=1139673458]
 wait_time = 1.5
@@ -78,7 +73,7 @@ position = Vector2(0, 1500)
 shape = SubResource("RectangleShape2D_gd7ey")
 
 [node name="RightWall" type="CollisionShape2D" parent="Walls" unique_id=1248037516]
-position = Vector2(3006, 1500)
+position = Vector2(3000, 1500)
 shape = SubResource("RectangleShape2D_4ouxv")
 
 [node name="bullet" parent="." unique_id=699015559 instance=ExtResource("3_s3sxq")]
