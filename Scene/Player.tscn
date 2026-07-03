@@ -22,11 +22,13 @@ polygon = PackedVector2Array(-7.9472046, -8.95874, 7.9471436, -8.95874, 7.947143
 shape = SubResource("CircleShape2D_fniaf")
 
 [node name="Radar" type="Area2D" parent="." unique_id=1347417177]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" unique_id=1575942098]
 shape = SubResource("CircleShape2D_ojul4")
 
 [node name="EnemyRadar" type="Area2D" parent="." unique_id=269722647]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRadar" unique_id=978350476]
 shape = SubResource("CircleShape2D_ojul4")

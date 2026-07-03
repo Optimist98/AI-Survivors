@@ -7,6 +7,21 @@ var speed = 80.0
 @onready var sprite = $Polygon2D
 @export var gem_scene: PackedScene = preload("res://Scene/Gem.tscn")
 
+
+func _on_body_entered(body):
+    print("HIT PLAYER LOGIC")
+    Global.hp -= 10
+    print("NEW HP:", Global.hp)
+    print("HIT:", body)
+    if body.is_in_group("player"):
+        Global.take_damage(10)
+        
+        can_damage = false
+        await get_tree().create_timer(0.5).timeout
+        can_damage = true
+        
+
+
 var knockback_velocity := Vector2.ZERO
 
 func hit_flash():
@@ -47,6 +62,7 @@ func take_damage(damage: int):
 
 # Функция, которая вызывается, когда здоровье врага становится <= 0
 func die():
+<<<<<<< Updated upstream
     if gem_scene:
         call_deferred("spawn_gem") # Вызываем функцию спавна через deferred
     call_deferred("queue_free")
@@ -55,3 +71,14 @@ func spawn_gem():
     var gem = gem_scene.instantiate()
     get_parent().add_child(gem)
     gem.global_position = global_position
+=======
+    print("Enemy died")
+    queue_free()
+
+var can_damage = true
+
+func _on_area_2d_body_entered(body):
+    print("Enemy hit")
+    if body.is_in_group("player"):
+        Global.take_damage(10)
+>>>>>>> Stashed changes

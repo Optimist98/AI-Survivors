@@ -5,6 +5,7 @@ extends Control
 @onready var skills_button = $SkillsButton
 
 
+
 func _ready():
     update_coins()
 
