@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c72dkdp6eqh43"]
 
+[ext_resource type="Script" uid="uid://vgq5qrtyy07r" path="res://Scripts/level_1.gd" id="1_gqi4c"]
 [ext_resource type="PackedScene" uid="uid://t54hvm2v42yj" path="res://Scene/Player.tscn" id="1_lmyl5"]
 [ext_resource type="PackedScene" uid="uid://bc3nno6demh3p" path="res://Scene/bullet.tscn" id="3_s3sxq"]
-[ext_resource type="PackedScene" uid="uid://m320mada21do" path="res://Scene/gem.tscn" id="4_5py54"]
 [ext_resource type="PackedScene" uid="uid://c2woau2a8dual" path="res://enemies/Enemy.tscn" id="5_1bjei"]
 [ext_resource type="Script" uid="uid://bqo8mo4di5ux8" path="res://Scripts/Enemy_spawner.gd" id="7_8bq5r"]
 
@@ -15,7 +15,13 @@ size = Vector2(20, 3000)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ouxv"]
 size = Vector2(20, 3000)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gd7ey"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ouxv"]
+bg_color = Color(0.38039216, 0.8117647, 0.46666667, 1)
+
 [node name="Level1" type="Node2D" unique_id=524066236]
+script = ExtResource("1_gqi4c")
 
 [node name="Floor" type="ColorRect" parent="." unique_id=1143703729]
 offset_right = 3000.0
@@ -31,27 +37,6 @@ bullet_scene = ExtResource("3_s3sxq")
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-
-[node name="Gem" parent="." unique_id=1393817956 instance=ExtResource("4_5py54")]
-position = Vector2(250, 2883)
-
-[node name="Gem5" parent="." unique_id=863739294 instance=ExtResource("4_5py54")]
-position = Vector2(1376, 1628)
-
-[node name="Gem6" parent="." unique_id=1306155605 instance=ExtResource("4_5py54")]
-position = Vector2(156, 187)
-
-[node name="Gem7" parent="." unique_id=599855938 instance=ExtResource("4_5py54")]
-position = Vector2(632, 2223)
-
-[node name="Gem4" parent="." unique_id=1316042271 instance=ExtResource("4_5py54")]
-position = Vector2(2718, 237)
-
-[node name="Gem2" parent="." unique_id=1951041744 instance=ExtResource("4_5py54")]
-position = Vector2(2779, 1385)
-
-[node name="Gem3" parent="." unique_id=650788895 instance=ExtResource("4_5py54")]
-position = Vector2(2163, 2886)
 
 [node name="EnemySpawner" type="Timer" parent="." unique_id=1139673458]
 wait_time = 1.5
@@ -78,3 +63,19 @@ position = Vector2(3000, 1500)
 shape = SubResource("RectangleShape2D_4ouxv")
 
 [node name="bullet" parent="." unique_id=699015559 instance=ExtResource("3_s3sxq")]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1513492796]
+
+[node name="XpBar" type="ProgressBar" parent="UI" unique_id=1100579267]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 27.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_gd7ey")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4ouxv")
+
+[node name="LevelLabel" type="Label" parent="UI" unique_id=385294097]
+offset_left = 1.0
+offset_top = 29.0
+offset_right = 41.0
+offset_bottom = 52.0

@@ -28,7 +28,7 @@ func save_game():
     
 func _ready():
     print("LOADING GAME")
-    load_game()    
+    load_game()  
 
 func upgrade_strength():
     if coins >= strength_cost:
@@ -41,7 +41,5 @@ func upgrade_strength():
 func _notification(what):
     if what == NOTIFICATION_WM_CLOSE_REQUEST:
         save_game()
-    
-    
-    
+   
     

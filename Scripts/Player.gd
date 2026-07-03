@@ -1,7 +1,25 @@
 extends CharacterBody2D
 
+var xp = 0
+var level = 1
+var xp_to_next_level = 100 # Сколько нужно опыта для повышения
+
 @export var speed: float = 150.0
 
+signal xp_changed(new_xp) # Объявляем сигнал
+
+func add_experience(amount):
+    xp += amount
+    # Проверка на повышение уровня
+    while xp >= xp_to_next_level:
+        xp -= xp_to_next_level
+        level += 1
+        xp_to_next_level += 50 # Увеличиваем сложность на 50 с каждым уровнем
+        print("Уровень повышен! Новый уровень: ", level)
+    
+    # Отправляем данные в интерфейс (текущий опыт, макс опыт, уровень)
+    xp_changed.emit(xp, xp_to_next_level, level)
+    
 var directions = [
  Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT,
  Vector2.UP + Vector2.LEFT, Vector2.UP + Vector2.RIGHT,
@@ -17,7 +35,6 @@ var interest = [0, 0, 0, 0, 0, 0, 0, 0]
 func _ready():
  for i in range(directions.size()):
   directions[i] = directions[i].normalized()
- print($EnemyRadar)
 
 func _physics_process(_delta):
  get_danger_weights()
@@ -106,11 +123,7 @@ func shoot(enemy):
     get_tree().current_scene.add_child(bullet)
 
 #Радар противников
-
-
-
 func _on_enemy_radar_body_entered(body):
-    print("DETECT2:", body.name)
     if body.is_in_group("enemies"):
         enemies.append(body)
 

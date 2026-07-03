@@ -5,6 +5,7 @@ var speed = 80.0
 @onready var player = get_tree().get_first_node_in_group("player") # Не забудь добавить игрока в группу "player"
 @onready var health_bar = $ProgressBar
 @onready var sprite = $Polygon2D
+@export var gem_scene: PackedScene = preload("res://Scene/Gem.tscn")
 
 var knockback_velocity := Vector2.ZERO
 
@@ -40,11 +41,17 @@ func take_damage(damage: int):
         knockback_velocity += dir * 350
     health_bar.visible = true
     health_bar.value = health
-    print("HP:", health)
 
     if health <= 0:
         die()
 
+# Функция, которая вызывается, когда здоровье врага становится <= 0
 func die():
-    print("Enemy died")
-    queue_free()
+    if gem_scene:
+        call_deferred("spawn_gem") # Вызываем функцию спавна через deferred
+    call_deferred("queue_free")
+
+func spawn_gem():
+    var gem = gem_scene.instantiate()
+    get_parent().add_child(gem)
+    gem.global_position = global_position
