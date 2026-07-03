@@ -13,11 +13,11 @@ func update_coins():
 
 
 func _on_start_button_pressed():
-    get_tree().change_scene_to_file("res://Level1.tscn")
+    get_tree().change_scene_to_file("res://Scene/Level1.tscn")
 
 
 func _on_skills_button_pressed():
-    get_tree().change_scene_to_file("res://Skill_Tree.tscn")
+    get_tree().change_scene_to_file("res://Scene/Skill_Tree.tscn")
 
 func _on_coin_button_pressed() -> void:
     Global.coins += 1

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bc3nno6demh3p"]
 
 [ext_resource type="Script" uid="uid://btkg7ysggpooh" path="res://Scripts/bullet.gd" id="1_v7oki"]
+[ext_resource type="Texture2D" uid="uid://ycmkkmh1jf37" path="res://Image/tile_0001.png" id="2_k7h5k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0swlc"]
 radius = 5.0
@@ -9,6 +10,7 @@ radius = 5.0
 script = ExtResource("1_v7oki")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1870996805]
+texture = ExtResource("2_k7h5k")
 offset = Vector2(4, 4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1735713045]
