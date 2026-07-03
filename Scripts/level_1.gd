@@ -12,14 +12,14 @@ func _ready():
     
 
 func update_ui(xp, max_xp, level):
-    $UI/ProgressBar.max_value = max_xp
-    $UI/ProgressBar.value = xp
+    $UI/XpBar.max_value = max_xp
+    $UI/XpBar.value = xp
     $UI/LevelLabel.text = "Уровень: " + str(level)
 
 func _on_player_xp_changed(current_xp, max_xp, current_level):
     # Обновляем прогресс-бар
-    $UI/ProgressBar.max_value = max_xp
-    $UI/ProgressBar.value = current_xp
+    $UI/XpBar.max_value = max_xp
+    $UI/XpBar.value = current_xp
     
     # Обновляем текст уровня
     $UI/LevelLabel.text = "Уровень: " + str(current_level)
