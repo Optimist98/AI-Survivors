@@ -8,3 +8,20 @@ func _physics_process(_delta):
     if player:
         velocity = (player.global_position - global_position).normalized() * speed
         move_and_slide()
+
+@export var max_health := 100
+var health := 100
+
+func _ready():
+    add_to_group("enemies")
+    health = max_health
+    
+func take_damage(damage: int):
+    health -= damage
+    print("HP:", health)
+
+    if health <= 0:
+        die()
+
+func die():
+    queue_free()

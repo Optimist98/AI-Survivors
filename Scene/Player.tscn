@@ -1,13 +1,17 @@
 [gd_scene format=3 uid="uid://t54hvm2v42yj"]
 
+[ext_resource type="Script" uid="uid://crf6wjlf1hghs" path="res://Scripts/Player.gd" id="1_6l3be"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_fniaf"]
 radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ojul4"]
-radius = 100.0
+radius = 250.0
 
 [node name="Player" type="CharacterBody2D" unique_id=773232642]
 position = Vector2(1500, 1500)
+collision_mask = 2
+script = ExtResource("1_6l3be")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1313404270]
 position = Vector2(-1.52588e-05, -1.52588e-05)
@@ -22,3 +26,11 @@ shape = SubResource("CircleShape2D_fniaf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Radar" unique_id=1575942098]
 shape = SubResource("CircleShape2D_ojul4")
+
+[node name="EnemyRadar" type="Area2D" parent="." unique_id=269722647]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRadar" unique_id=978350476]
+shape = SubResource("CircleShape2D_ojul4")
+
+[connection signal="body_entered" from="EnemyRadar" to="." method="_on_enemy_radar_body_entered"]
+[connection signal="body_exited" from="EnemyRadar" to="." method="_on_enemy_radar_body_exited"]

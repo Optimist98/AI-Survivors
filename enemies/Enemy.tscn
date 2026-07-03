@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://c2woau2a8dual"]
+
+[ext_resource type="Script" uid="uid://bh7ayw0m85821" path="res://enemies/Enemy.gd" id="1_xkw1x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6l3be"]
+
+[node name="Enemy" type="CharacterBody2D" unique_id=2094675423 groups=["enemies"]]
+position = Vector2(242, 295)
+script = ExtResource("1_xkw1x")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=71863982]
+position = Vector2(0, -1.14441e-05)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, -7, -7, 3, 0, 3, 7, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=759735850 groups=["enemy"]]
+shape = SubResource("CircleShape2D_6l3be")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1921591635]
+collision_layer = 2

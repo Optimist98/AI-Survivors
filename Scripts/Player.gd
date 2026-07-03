@@ -12,10 +12,12 @@ var danger = [0, 0, 0, 0, 0, 0, 0, 0]
 var interest = [0, 0, 0, 0, 0, 0, 0, 0]
 
 @onready var radar = $Radar
+@onready var enemy_radar = $EnemyRadar
 
 func _ready():
  for i in range(directions.size()):
   directions[i] = directions[i].normalized()
+ print($EnemyRadar)
 
 func _physics_process(_delta):
  get_danger_weights()
@@ -70,13 +72,65 @@ func get_interest_weights():
                     interest[i] = dot * 1.5
 
 @export var bullet_scene: PackedScene  # 👈 ВОТ ЭТО ОБЯЗАТЕЛЬНО
+#Стрельба
+var enemies: Array = []
+@export var bullet: PackedScene
+@export var shoot_interval := 0.5
 
+var can_shoot := true
 func _process(delta):
-    if Input.is_action_just_pressed("shoot"):
-        shoot()
+    auto_shoot()
+    #автострельба
+func auto_shoot():
+    print("enemies:", enemies.size())
+    if !can_shoot:
+        return
 
-func shoot():
+    var enemy = get_nearest_enemy()
+    if enemy == null:
+        return
+
+    shoot(enemy)
+
+    can_shoot = false
+    await get_tree().create_timer(shoot_interval).timeout
+    can_shoot = true
+    #Выстрел
+func shoot(enemy):
     var bullet = bullet_scene.instantiate()
+
     bullet.global_position = global_position
+
+    var dir = (enemy.global_position - global_position).normalized()
+    bullet.direction = dir
+
     get_tree().current_scene.add_child(bullet)
-    print("shoot")
+
+    print("auto shoot")
+
+#Радар противников
+
+
+
+func _on_enemy_radar_body_entered(body):
+    print("DETECT2:", body.name)
+    if body.is_in_group("enemies"):
+        enemies.append(body)
+
+func _on_enemy_radar_body_exited(body):
+    enemies.erase(body)
+    
+    #Поиск ближайшего в радаре противника
+func get_nearest_enemy():
+    var nearest = null
+    var min_dist = INF
+
+    for body in enemy_radar.get_overlapping_bodies():
+        if body.is_in_group("enemies"):
+            var dist = global_position.distance_to(body.global_position)
+            if dist < min_dist:
+                min_dist = dist
+                nearest = body
+
+    return nearest
+    

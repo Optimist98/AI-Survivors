@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://c72dkdp6eqh43"]
 
 [ext_resource type="PackedScene" uid="uid://t54hvm2v42yj" path="res://Scene/Player.tscn" id="1_lmyl5"]
-[ext_resource type="Script" uid="uid://crf6wjlf1hghs" path="res://Scripts/Player.gd" id="2_mlbie"]
 [ext_resource type="PackedScene" uid="uid://bc3nno6demh3p" path="res://Scene/bullet.tscn" id="3_s3sxq"]
 [ext_resource type="PackedScene" uid="uid://m320mada21do" path="res://Scene/gem.tscn" id="4_5py54"]
-[ext_resource type="PackedScene" uid="uid://c2woau2a8dual" path="res://Scene/Enemy.tscn" id="5_1bjei"]
-[ext_resource type="Script" uid="uid://bh7ayw0m85821" path="res://Scripts/Enemy.gd" id="6_5g1s2"]
+[ext_resource type="PackedScene" uid="uid://c2woau2a8dual" path="res://enemies/Enemy.tscn" id="5_1bjei"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilfgn"]
 size = Vector2(3000, 20)
@@ -24,7 +22,6 @@ offset_bottom = 3000.0
 color = Color(0.435294, 0.435294, 0.435294, 1)
 
 [node name="Player" parent="." unique_id=106796341 groups=["player"] instance=ExtResource("1_lmyl5")]
-script = ExtResource("2_mlbie")
 bullet_scene = ExtResource("3_s3sxq")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=78179809]
@@ -53,13 +50,11 @@ position = Vector2(1643, 1302)
 [node name="Gem3" parent="." unique_id=650788895 instance=ExtResource("4_5py54")]
 position = Vector2(1317, 1412)
 
-[node name="Enemy" parent="." unique_id=1289450568 groups=["enemies"] instance=ExtResource("5_1bjei")]
+[node name="Enemy" parent="." unique_id=1289450568 groups=["enemy"] instance=ExtResource("5_1bjei")]
 position = Vector2(1599, 1355)
-script = ExtResource("6_5g1s2")
 
-[node name="Enemy2" parent="." unique_id=1549097031 groups=["enemies"] instance=ExtResource("5_1bjei")]
+[node name="Enemy2" parent="." unique_id=1549097031 groups=["enemy"] instance=ExtResource("5_1bjei")]
 position = Vector2(1579, 1618)
-script = ExtResource("6_5g1s2")
 
 [node name="EnemySpawner" type="Timer" parent="." unique_id=1139673458]
 
