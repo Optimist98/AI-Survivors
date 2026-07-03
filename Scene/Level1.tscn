@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://t54hvm2v42yj" path="res://Scene/Player.tscn" id="1_lmyl5"]
 [ext_resource type="PackedScene" uid="uid://bc3nno6demh3p" path="res://Scene/bullet.tscn" id="3_s3sxq"]
 [ext_resource type="PackedScene" uid="uid://m320mada21do" path="res://Scene/gem.tscn" id="4_5py54"]
-[ext_resource type="PackedScene" uid="uid://c2woau2a8dual" path="res://Scene/Enemy.tscn" id="5_1bjei"]
+[ext_resource type="PackedScene" uid="uid://c2woau2a8dual" path="res://enemies/Enemy.tscn" id="5_1bjei"]
 [ext_resource type="Script" uid="uid://bqo8mo4di5ux8" path="res://Scripts/Enemy_spawner.gd" id="7_8bq5r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilfgn"]
@@ -50,6 +50,12 @@ position = Vector2(2779, 1385)
 
 [node name="Gem3" parent="." unique_id=650788895 instance=ExtResource("4_5py54")]
 position = Vector2(2163, 2886)
+
+[node name="Enemy" parent="." unique_id=1289450568 instance=ExtResource("5_1bjei")]
+position = Vector2(1599, 1355)
+
+[node name="Enemy2" parent="." unique_id=1549097031 instance=ExtResource("5_1bjei")]
+position = Vector2(1579, 1618)
 
 [node name="EnemySpawner" type="Timer" parent="." unique_id=1139673458]
 wait_time = 1.5
