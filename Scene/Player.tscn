@@ -1,13 +1,16 @@
 [gd_scene format=3 uid="uid://t54hvm2v42yj"]
 
+[ext_resource type="Script" uid="uid://crf6wjlf1hghs" path="res://Scripts/Player.gd" id="1_6l3be"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_fniaf"]
 radius = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ojul4"]
 radius = 100.0
 
-[node name="Player" type="CharacterBody2D" unique_id=773232642]
+[node name="Player" type="CharacterBody2D" unique_id=773232642 groups=["player"]]
 position = Vector2(1500, 1500)
+script = ExtResource("1_6l3be")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1313404270]
 position = Vector2(-1.52588e-05, -1.52588e-05)
