@@ -10,18 +10,6 @@ var speed = 80.0
 var can_damage = true
 var knockback_velocity := Vector2.ZERO
 
-func _on_body_entered(body):
-    print("HIT PLAYER LOGIC")
-    Global.hp -= 10
-    print("NEW HP:", Global.hp)
-    print("HIT:", body)
-    if body.is_in_group("player"):
-        Global.take_damage(10)
-
-        can_damage = false
-        await get_tree().create_timer(0.5).timeout
-        can_damage = true
-
 func hit_flash():
     sprite.modulate = Color(1, 0.3, 0.3)  # красный оттенок
     await get_tree().create_timer(0.1).timeout
@@ -66,6 +54,5 @@ func spawn_gem():
     gem.global_position = global_position
 
 func _on_area_2d_body_entered(body):
-    print("Enemy hit")
     if body.is_in_group("player"):
         Global.take_damage(10)
