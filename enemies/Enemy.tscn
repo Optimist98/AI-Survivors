@@ -4,7 +4,11 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6l3be"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xkw1x"]
+radius = 11.0
+
 [node name="Enemy" type="CharacterBody2D" unique_id=2094675423 groups=["enemies"]]
+collision_layer = 2
 script = ExtResource("1_xkw1x")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=71863982]
@@ -22,3 +26,12 @@ offset_transform_enabled = true
 offset_transform_position = Vector2(-20, -30)
 value = 100.0
 show_percentage = false
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1725548101]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1477995688]
+shape = SubResource("CircleShape2D_xkw1x")
+debug_color = Color(0.8607735, 0.3190009, 0.4517724, 0.41960785)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

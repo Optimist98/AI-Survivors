@@ -33,8 +33,9 @@ var interest = [0, 0, 0, 0, 0, 0, 0, 0]
 @onready var enemy_radar = $EnemyRadar
 
 func _ready():
- for i in range(directions.size()):
-  directions[i] = directions[i].normalized()
+    speed = Global.speed
+    for i in range(directions.size()):
+        directions[i] = directions[i].normalized()
 
 func _physics_process(_delta):
  get_danger_weights()
@@ -95,7 +96,11 @@ var enemies: Array = []
 @export var shoot_interval := 0.5
 
 var can_shoot := true
+
 func _process(delta):
+    if Global.hp < Global.max_hp:
+        Global.hp += Global.regeneration * delta
+        Global.hp = min(Global.hp, Global.max_hp)
     auto_shoot()
     #автострельба
 func auto_shoot():
@@ -143,4 +148,5 @@ func get_nearest_enemy():
                 nearest = body
 
     return nearest
+    
     

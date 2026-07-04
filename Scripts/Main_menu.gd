@@ -5,6 +5,7 @@ extends Control
 @onready var skills_button = $SkillsButton
 
 
+
 func _ready():
     update_coins()
 
@@ -22,4 +23,3 @@ func _on_skills_button_pressed():
 func _on_coin_button_pressed() -> void:
     Global.coins += 1
     update_coins()
-    pass # Replace with function body.
