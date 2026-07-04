@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 # Скрипт врага (Enemy.gd)
 var speed = 80.0
-@onready var player = get_tree().get_first_node_in_group("player") # Не забудь добавить игрока в группу "player"
+@onready var player = get_tree().get_first_node_in_group("player")
 @onready var health_bar = $ProgressBar
 @onready var sprite = $Polygon2D
 @export var gem_scene: PackedScene = preload("res://Scene/Gem.tscn")
@@ -19,7 +19,8 @@ func _physics_process(_delta):
         var dir = (player.global_position - global_position).normalized() * speed
         velocity = dir + knockback_velocity
         move_and_slide()
-        
+        # Плавно затухает отскок
+        knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, 500 * _delta)
 
 @export var max_health := 100
 var health := 100
@@ -30,15 +31,16 @@ func _ready():
     health_bar.max_value = max_health
     health_bar.value = health
     health_bar.visible = false
-    
+
 func take_damage(damage: int):
     hit_flash()
     health -= damage
-    if health <= 0:
-        die()
-        return
-        var dir = (global_position - get_tree().get_first_node_in_group("player").global_position).normalized()
-        knockback_velocity += dir * 350
+    
+    # Отскок от игрока при получении урона
+    if player:
+        var dir = (global_position - player.global_position).normalized()
+        knockback_velocity = dir * 150  # Заменяем, не добавляем
+    
     health_bar.visible = true
     health_bar.value = health
 
@@ -48,7 +50,7 @@ func take_damage(damage: int):
 # Функция, которая вызывается, когда здоровье врага становится <= 0
 func die():
     if gem_scene:
-        call_deferred("spawn_gem") # Вызываем функцию спавна через deferred
+        call_deferred("spawn_gem")  # Вызываем функцию спавна через deferred
     call_deferred("queue_free")
 
 func spawn_gem():
