@@ -84,8 +84,10 @@ func _ready() -> void:
 	for i in range(directions.size()):
 		directions[i] = directions[i].normalized()
 	
-	danger = [0.0] * 8
-	interest = [0.0] * 8
+	# Инициализируем массивы весов
+	for _i in range(8):
+		danger.append(0.0)
+		interest.append(0.0)
 	
 	# Подписываемся на сигналы
 	enemy_radar.body_entered.connect(_on_enemy_entered)
@@ -115,7 +117,9 @@ func _process(_delta: float) -> void:
 
 # --- СИСТЕМА AI (ВЕСА) ---
 func get_danger_weights() -> void:
-	danger = [0.0] * 8
+	for i in range(danger.size()):
+		danger[i] = 0.0
+	
 	var overlapping_bodies: Array[Node2D] = radar.get_overlapping_bodies()
 	
 	for body in overlapping_bodies:
@@ -131,7 +135,9 @@ func get_danger_weights() -> void:
 					danger[i] = max(danger[i], dot * panic_factor)
 
 func get_interest_weights() -> void:
-	interest = [0.0] * 8
+	for i in range(interest.size()):
+		interest[i] = 0.0
+	
 	var gems: Array[Node] = get_tree().get_nodes_in_group("gems")
 	
 	if gems.size() > 0:
