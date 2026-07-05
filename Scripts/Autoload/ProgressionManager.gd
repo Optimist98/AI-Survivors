@@ -92,11 +92,54 @@ func _check_level_up() -> void:
 
 func _generate_upgrade_options(count: int) -> Array:
 	var all_abilities = [
-		{"id": "damage_up", "name": "Урон +20%", "icon": preload("res://icon.svg")},
-		{"id": "speed_up", "name": "Скорость стрельбы +15%", "icon": preload("res://icon.svg")},
-		{"id": "move_up", "name": "Скорость героя +10%", "icon": preload("res://icon.svg")},
-		{"id": "max_hp", "name": "Макс. здоровье +25", "icon": preload("res://icon.svg")},
-		{"id": "coin_magnet", "name": "Магнит на монеты +100px", "icon": preload("res://icon.svg")},
+		{
+			"id": "damage_up",
+			"name": "💥 Урон +20%",
+			"description": "Увеличить урон на 20%",
+			"icon": preload("res://icon.svg")
+		},
+		{
+			"id": "speed_up",
+			"name": "⚡ Скорость стрельбы +15%",
+			"description": "Стрелять чаще на 15%",
+			"icon": preload("res://icon.svg")
+		},
+		{
+			"id": "move_up",
+			"name": "🏃 Скорость движения +10%",
+			"description": "Двигаться быстрее на 10%",
+			"icon": preload("res://icon.svg")
+		},
+		{
+			"id": "max_hp",
+			"name": "❤️ Макс. здоровье +25",
+			"description": "Увеличить максимальное здоровье на 25",
+			"icon": preload("res://icon.svg")
+		},
+		{
+			"id": "coin_magnet",
+			"name": "💰 Магнит +33%",
+			"description": "Расстояние подбора монет на 33%",
+			"icon": preload("res://icon.svg")
+		},
+		{
+			"id": "crit_chance",
+			"name": "🎯 Крит. шанс +5%",
+			"description": "Вероятность крит удара на 5%",
+			"icon": preload("res://icon.svg")
+		},
+		{
+			"id": "projectile_range",
+			"name": "🏹 Дальность снаряда +20%",
+			"description": "Снаряды летят на 20% дальше",
+			"icon": preload("res://icon.svg")
+		},
+		{
+			"id": "vision_range",
+			"name": "👁️ Видимость врагов +33%",
+			"description": "Видеть врагов на 33% дальше",
+			"icon": preload("res://icon.svg")
+		},
 	]
 	all_abilities.shuffle()
 	return all_abilities.slice(0, count)
