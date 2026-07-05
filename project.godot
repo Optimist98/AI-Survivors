@@ -24,6 +24,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://cs3f0cv0fd5il"
+EnemySignalBus="*res://Scripts/Autoload/EnemySignalBus.gd"
+ProgressionManager="*res://Scripts/Autoload/ProgressionManager.gd"
+PlayerUpgradeBus="*res://Scripts/Autoload/PlayerUpgradeBus.gd"
 
 [display]
 
