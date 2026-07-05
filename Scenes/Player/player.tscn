@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2p8oxm8cy1ul"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_5t3g9"]
+[ext_resource type="Script" path="res://Scripts/Player/player_movement.gd" id="2_0w2b5"]
+[ext_resource type="Script" path="res://Scripts/Player/player_xp.gd" id="3_1h2k7"]
+[ext_resource type="Script" path="res://Scripts/Player/player_health.gd" id="4_2n8x9"]
+[ext_resource type="Script" path="res://Scripts/Player/player_weapon_system.gd" id="5_3p5k0"]
+[ext_resource type="Script" path="res://Scripts/Weapons/automatic_gun.gd" id="6_4q6l1"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/upgrade_ui.tscn" id="7_5r8m2"]
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = SubResource("GDScript_player")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, -20, 20, 20, 0, 15, -20, 20)
+color = Color(0, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_collision")
+
+[node name="Radar" type="Area2D" parent="." groups=["radar"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Radar"]
+shape = SubResource("CircleShape2D_radar")
+
+[node name="EnemyRadar" type="Area2D" parent="." groups=["enemy_radar"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyRadar"]
+shape = SubResource("CircleShape2D_enemy_radar")
+
+[node name="PlayerMovement" type="Node" parent="."]
+script = ExtResource("2_0w2b5")
+
+[node name="PlayerXP" type="Node" parent="."]
+script = ExtResource("3_1h2k7")
+
+[node name="PlayerHealth" type="Node" parent="."]
+script = ExtResource("4_2n8x9")
+max_health = 100
+
+[node name="PlayerWeaponSystem" type="Node" parent="."]
+script = ExtResource("5_3p5k0")
+
+[node name="AutomaticGun" type="Node2D" parent="PlayerWeaponSystem"]
+script = ExtResource("6_4q6l1")
+
+[sub_resource type="GDScript" id="GDScript_player"]
+script_source = ExtResource("1_5t3g9")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_collision"]
+radius = 12.0
+height = 40.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_radar"]
+radius = 300.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enemy_radar"]
+radius = 400.0
