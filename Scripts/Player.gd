@@ -1,152 +1,68 @@
+# player.gd
+# Главный скрипт игрока - объединяет все компоненты
 extends CharacterBody2D
 
-var xp = 0
-var level = 1
-var xp_to_next_level = 100 # Сколько нужно опыта для повышения
-
-@export var speed: float = 150.0
-
-signal xp_changed(new_xp) # Объявляем сигнал
-
-func add_experience(amount):
-    xp += amount
-    # Проверка на повышение уровня
-    while xp >= xp_to_next_level:
-        xp -= xp_to_next_level
-        level += 1
-        xp_to_next_level += 50 # Увеличиваем сложность на 50 с каждым уровнем
-        print("Уровень повышен! Новый уровень: ", level)
-    
-    # Отправляем данные в интерфейс (текущий опыт, макс опыт, уровень)
-    xp_changed.emit(xp, xp_to_next_level, level)
-    
-var directions = [
- Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT,
- Vector2.UP + Vector2.LEFT, Vector2.UP + Vector2.RIGHT,
- Vector2.DOWN + Vector2.LEFT, Vector2.DOWN + Vector2.RIGHT
-]
-
-var danger = [0, 0, 0, 0, 0, 0, 0, 0]
-var interest = [0, 0, 0, 0, 0, 0, 0, 0]
-
+@onready var player_xp = $PlayerXP
+@onready var player_health = $PlayerHealth
+@onready var player_weapon_system = $PlayerWeaponSystem
 @onready var radar = $Radar
 @onready var enemy_radar = $EnemyRadar
 
 func _ready():
-    speed = Global.speed
-    for i in range(directions.size()):
-        directions[i] = directions[i].normalized()
-
-func _physics_process(_delta):
- get_danger_weights()
- get_interest_weights()
- 
- var chosen_direction = Vector2.ZERO
- for i in range(directions.size()):
-  var result_weight = interest[i] - danger[i]
-  chosen_direction += directions[i] * result_weight
- 
- if chosen_direction != Vector2.ZERO:
-  velocity = chosen_direction.normalized() * speed
- else:
-  velocity = Vector2.ZERO
-  
- move_and_slide()
-
-func get_danger_weights():
- danger = [0, 0, 0, 0, 0, 0, 0, 0]
- var overlapping_bodies = radar.get_overlapping_bodies()
- 
- for body in overlapping_bodies:
-  if body.is_in_group("enemies"): 
-   var direction_to_enemy = (body.global_position - global_position).normalized()
-   var distance = global_position.distance_to(body.global_position)
-   var panic_factor = 1.0 - (distance / 300.0) 
-   panic_factor = clamp(panic_factor, 0.0, 1.0)
-
-   for i in range(directions.size()):
-    var dot = directions[i].dot(direction_to_enemy)
-    if dot > 0: 
-     danger[i] = max(danger[i], dot * panic_factor)
-
-func get_interest_weights():
-    interest = [0, 0, 0, 0, 0, 0, 0, 0]
-    var gems = get_tree().get_nodes_in_group("gems")
+    add_to_group("player")
     
-    if gems.size() > 0:
-        var closest_gem = null
-        var min_dist = 999999
-        for g in gems:
-            var dist = global_position.distance_to(g.global_position)
-            if dist < min_dist:
-                min_dist = dist
-                closest_gem = g
-        
-        if closest_gem:
-            var dir_to_gem = (closest_gem.global_position - global_position).normalized()
-            for i in range(directions.size()):
-                var dot = directions[i].dot(dir_to_gem)
-                if dot > 0:
-                    interest[i] = dot * 1.5
-
-@export var bullet_scene: PackedScene  # 👈 ВОТ ЭТО ОБЯЗАТЕЛЬНО
-#Стрельба
-var enemies: Array = []
-@export var bullet: PackedScene
-@export var shoot_interval := 0.5
-
-var can_shoot := true
-
-func _process(delta):
-    if Global.hp < Global.max_hp:
-        Global.hp += Global.regeneration * delta
-        Global.hp = min(Global.hp, Global.max_hp)
-    auto_shoot()
-    #автострельба
-func auto_shoot():
-    if !can_shoot:
-        return
-
-    var enemy = get_nearest_enemy()
-    if enemy == null:
-        return
-
-    shoot(enemy)
-
-    can_shoot = false
-    await get_tree().create_timer(shoot_interval).timeout
-    can_shoot = true
-    #Выстрел
-func shoot(enemy):
-    var bullet = bullet_scene.instantiate()
-
-    bullet.global_position = global_position
-
-    var dir = (enemy.global_position - global_position).normalized()
-    bullet.direction = dir
-
-    get_tree().current_scene.add_child(bullet)
-
-#Радар противников
-func _on_enemy_radar_body_entered(body):
-    if body.is_in_group("enemies"):
-        enemies.append(body)
-
-func _on_enemy_radar_body_exited(body):
-    enemies.erase(body)
+    # Проверяем все компоненты подключены
+    if not player_xp:
+        push_error("PlayerXP component not found!")
+    if not player_health:
+        push_error("PlayerHealth component not found!")
+    if not player_weapon_system:
+        push_error("PlayerWeaponSystem component not found!")
     
-    #Поиск ближайшего в радаре противника
-func get_nearest_enemy():
-    var nearest = null
-    var min_dist = INF
-
-    for body in enemy_radar.get_overlapping_bodies():
-        if body.is_in_group("enemies"):
-            var dist = global_position.distance_to(body.global_position)
-            if dist < min_dist:
-                min_dist = dist
-                nearest = body
-
-    return nearest
+    # Подключаем сигналы
+    if player_health:
+        player_health.health_changed.connect(_on_health_changed)
+        player_health.died.connect(_on_player_died)
     
-    
+    if player_xp:
+        player_xp.xp_changed.connect(_on_xp_changed)
+        player_xp.level_up.connect(_on_level_up)
+
+func take_damage(damage: int):
+    if player_health:
+        player_health.take_damage(damage)
+
+func add_experience(amount: int):
+    if player_xp:
+        player_xp.add_experience(amount)
+
+func apply_upgrade(upgrade_type: String, value: float):
+    match upgrade_type:
+        "damage":
+            if player_weapon_system and player_weapon_system.current_weapon:
+                player_weapon_system.current_weapon.apply_upgrade("damage", value)
+        "fire_rate":
+            if player_weapon_system and player_weapon_system.current_weapon:
+                player_weapon_system.current_weapon.apply_upgrade("fire_rate", value)
+        "speed":
+            # Увеличиваем скорость движения
+            if has_node("PlayerMovement"):
+                var movement = get_node("PlayerMovement")
+                movement.speed *= value
+        "max_health":
+            if player_health:
+                player_health.max_health *= value
+                player_health.health = player_health.max_health
+
+func _on_health_changed(current_health, max_health):
+    print("Player HP: ", current_health, "/", max_health)
+
+func _on_player_died():
+    print("Player died!")
+    # Здесь можно добавить game over экран
+
+func _on_xp_changed(current_xp, max_xp, level):
+    print("XP: ", current_xp, "/", max_xp, " Level: ", level)
+
+func _on_level_up(level):
+    print("LEVEL UP! New level: ", level)
